@@ -13,8 +13,12 @@ def index(request):
 def save(request):
 
     url = request.GET.get("url")
-    # os.system(f"cd quotetutorial && scrapy crawl quotes -a url={url} -a key=1234")
-    os.system(f"cd quotetutorial/ && /home/ubuntu/env/bin/scrapy crawl quotes -a url={url} -a key=1234")
+
+    #FOR WINDOWS
+    os.system(f"cd quotetutorial && scrapy crawl quotes -a url={url} -a key=1234")
+
+    #FOR LINUX
+    # os.system(f"cd quotetutorial/ && /home/ubuntu/env/bin/scrapy crawl quotes -a url={url} -a key=1234")
 
     return HttpResponse("ADDED TO DATABASE")
 
@@ -34,3 +38,7 @@ def show(request):
     except:
         return HttpResponse("error")
 
+def clear(request):
+    Quote.objects.all().delete()
+
+    return redirect("/")

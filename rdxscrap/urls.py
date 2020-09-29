@@ -21,4 +21,5 @@ urlpatterns = [
     path('',include("app.urls")),
     path('save/',include("app.urls")),
     path('show/',include("app.urls")),
+    path('clear/',include("app.urls")),
 ]
