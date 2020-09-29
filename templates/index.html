@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>RdxScrap</title>
+  </head>
+  <body>
+
+<center>
+<div style="margin-top:20px;">
+    <h4>ENTER COMMA SEPERATE URLS</h4>
+    <input type="text" id="multipleUrl">
+    <input type="submit" onclick="main();" value="SUBMIT">
+</div>
+</center>
+
+<center>
+<div style="margin:30px;">
+<div id="data" style="display:block; margin:auto; max-width:500px;">
+</div>
+</div>
+</center>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+<script>
+
+function main(){
+multipleUrls = document.getElementById('multipleUrl').value;
+var Arr = multipleUrls.split(',');
+for(var i =0;i < Arr.length;i++){
+//alert(Arr[i])
+
+saveData(Arr[i]);
+
+function saveData(urlArgument){
+
+//var inputUrl = document.getElementById('url').value;
+var inputUrl = urlArgument;
+//alert(inputUrl)
+
+
+var url = "/save?url=" + inputUrl
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+    var url = document.getElementById('multipleUrl').value = "";
+    showData();
+//    alert(xhttp.responseText);
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+function showData(){
+var url = "/show";
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+    var data = eval(xhttp.responseText);
+
+    //alert(data);
+
+    var div = document.getElementById("data");
+    div.innerHTML = ""
+    var table = document.createElement('TABLE');
+    var row = table.insertRow(i);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+    title.innerHTML = "TITLE";
+    url.innerHTML = "URL";
+
+    for(var i =0;i < data.length;i++){
+    var row = table.insertRow(i+1);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+
+    title.innerHTML = data[i].title;
+    url.innerHTML = data[i].url;
+
+    table.className = 'table'
+    div.appendChild(table);
+
+    }
+    }
+
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+}
+
+}
+
+
+</script>
+  </body>
+</html>
+
+
+
+
+
+

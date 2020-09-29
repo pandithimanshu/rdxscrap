@@ -1,0 +1,195 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RDXSCRAP</title>
+</head>
+<body>
+
+<center>
+<div>
+    <h1>ENTER COMMA SEPERATE URLS</h1>
+    <input type="text" id="multipleUrl">
+    <input type="submit" onclick="main();" value="SUMIT">
+
+</div>
+</center>
+
+
+<!--<CENTER>-->
+<!--&lt;!&ndash;<form method="get" action="/save">&ndash;&gt;-->
+
+<!--    <label for="url">ENTER URL TO BE SCRAPED</label>-->
+<!--    <input id="url" name="url" type="text" placeholder="url">-->
+<!--    <input type="submit" onclick="saveData();" value="SUMIT">-->
+
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+<!--</CENTER>-->
+
+
+<center>
+
+    <h1>DATA</h1>
+<div id="data">
+    {% for i in data %}
+    <h3> {{i.url }} ---- {{i.title}} </h3>
+    {% endfor %}
+</div>
+</center>
+
+
+</body>
+<script>
+
+function main(){
+multipleUrls = document.getElementById('multipleUrl').value;
+var Arr = multipleUrls.split(',');
+for(var i =0;i < Arr.length;i++){
+alert(Arr[i])
+
+saveData(Arr[i]);
+
+function saveData(urlArgument){
+
+//var inputUrl = document.getElementById('url').value;
+var inputUrl = urlArgument;
+
+
+var url = "/save?url=" + inputUrl
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+    //var url = document.getElementById('url').value = "";
+    showData();
+
+//    alert(xhttp.responseText);
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+
+
+
+function showData(){
+
+var url = "/show";
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var data = eval(xhttp.responseText);
+    //alert(data);
+
+    var div = document.getElementById("data");
+    div.innerHTML = ""
+    var table = document.createElement('TABLE');
+    var row = table.insertRow(i);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+    title.innerHTML = "TITLE";
+    url.innerHTML = "URL";
+
+    for(var i =0;i < data.length;i++){
+    var row = table.insertRow(i+1);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+
+    title.innerHTML = data[i].title;
+    url.innerHTML = data[i].url;
+
+    table.className = 'table'
+    div.appendChild(table);
+
+    }
+    }
+
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+}
+
+}
+
+
+
+function saveData(){
+
+var inputUrl = document.getElementById('url').value;
+
+
+var url = "/save?url=" + inputUrl
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+    var url = document.getElementById('url').value = "";
+    showData();
+
+//    alert(xhttp.responseText);
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+
+
+
+function showData(){
+
+var url = "/show";
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var data = eval(xhttp.responseText);
+    //alert(data);
+
+    var div = document.getElementById("data");
+    div.innerHTML = ""
+    var table = document.createElement('TABLE');
+    var row = table.insertRow(i);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+    title.innerHTML = "TITLE";
+    url.innerHTML = "URL";
+
+    for(var i =0;i < data.length;i++){
+    var row = table.insertRow(i+1);
+    var title = row.insertCell(0)
+    var url = row.insertCell(1)
+
+    title.innerHTML = data[i].title;
+    url.innerHTML = data[i].url;
+
+    table.className = 'table'
+    div.appendChild(table);
+
+    }
+    }
+
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
+
+
+</script>
+</html>
