@@ -15,7 +15,10 @@ def save(request):
     url = request.GET.get("url")
 
     #FOR WINDOWS
-    os.system(f"cd quotetutorial && scrapy crawl quotes -a url={url} -a key=1234")
+    # os.system(f"cd quotetutorial && scrapy crawl quotes -a url={url} -a key=1234")
+
+    #FOR HEROKU
+    os.system(f"cd quotetutorial/ && /app/.heroku/python/bin/scrapy crawl quotes -a url={url} -a key=1234")
 
     #FOR LINUX
     # os.system(f"cd quotetutorial/ && /home/ubuntu/env/bin/scrapy crawl quotes -a url={url} -a key=1234")
