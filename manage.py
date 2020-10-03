@@ -3,6 +3,7 @@
 import os
 import sys
 
+#not edit anything in this
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rdxscrap.settings')
